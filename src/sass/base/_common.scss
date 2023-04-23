@@ -6,3 +6,20 @@ body {
   font-size: 1rem;
   font-family: "Bruno Ace", cursive;
 }
+
+.key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 55px;
+  height: 55px;
+  border: 1px solid #000;
+  &_short {
+    width: 32px;
+  }
+  &_middle {
+    width: 78px;
+  }
+  &_long {
+  }
+}
