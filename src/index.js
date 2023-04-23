@@ -28,24 +28,17 @@ const generateLayout = () => {
   wrapper.append(keyBoard);
 };
 
-
-
-// const generateKeys = () => {
-//   let initTemplate = '';
-//   // eslint-disable-next-line no-plusplus
-//   for (let i = 0; i < keys.length; i++) {
-//     // initTemplate += `<div class='key key${keys[i]}'>` + String.fromCharCode(keys[i]) + `<div>`;
-//   }
-//   const keyBoardContainer = document.querySelector('.keyBoard__container');
-//   keyBoardContainer.innerHTML = initTemplate;
-// };
+const generateKeys = (lang) => {
+  let initTemplate = '';
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < data[lang].length; i++) {
+    initTemplate += `<div class='key key${data[lang][i]}'><span>${data[lang][i]}</span></div> `;
+  }
+  const keyBoardContainer = document.querySelector('.keyBoard__container');
+  keyBoardContainer.insertAdjacentHTML('beforeend', initTemplate);
+};
 
 window.onload = () => {
   generateLayout();
-  // generateKeys();
+  generateKeys('en');
 };
-
-// window.onkeydown = (event) => {
-//   keysRu.push(event.key);
-//   console.log(keysRu);
-// };
