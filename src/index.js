@@ -32,13 +32,21 @@ const generateKeys = (lang) => {
   let initTemplate = '';
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < data[lang].length; i++) {
-    initTemplate += `<div class='key key${data[lang][i]}'><span>${data[lang][i]}</span></div> `;
+    initTemplate += `<div class='key key${[i]}'><span>${data[lang][i]}</span></div> `;
   }
   const keyBoardContainer = document.querySelector('.keyBoard__container');
   keyBoardContainer.insertAdjacentHTML('beforeend', initTemplate);
 };
 
+const setKeySize = () => {
+  const backColons = document.querySelector('.key0');
+  const backspace = document.querySelector('.key13');
+  backColons.classList.add('key_short');
+  backspace.classList.add('key_middle');
+};
+
 window.onload = () => {
   generateLayout();
   generateKeys('en');
+  setKeySize();
 };
