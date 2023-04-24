@@ -14,6 +14,17 @@ body {
   width: 55px;
   height: 55px;
   border: 1px solid #000;
+  box-shadow: 1px 1px 3px #000;
+  transition: all 0.2s ease;
+  &:hover {
+    background: rgb(126, 219, 72);
+    transition: all 0.2s ease;
+  }
+  &:active {
+    transform: translate(2px, 2px);
+    background: rgb(55, 115, 20);
+    color: aliceblue;
+  }
   &_first-row {
     width: 46px;
   }
