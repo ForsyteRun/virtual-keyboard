@@ -7,7 +7,9 @@ const data = {
   letters: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'],
 };
 
-const language = 'en';
+let language = 'en';
+let firstKey = [];
+
 const generateLayout = () => {
   const body = document.querySelector('body');
 
@@ -30,6 +32,11 @@ const generateLayout = () => {
   wrapper.append(title);
   wrapper.append(textArea);
   wrapper.append(keyBoard);
+};
+
+const removeLayout = () => {
+  const keyBoard = document.querySelector('.keyBoard ');
+  keyBoard.innerHTML = '';
 };
 
 const generateKeys = (lang) => {
@@ -84,16 +91,10 @@ const serArrowSvg = () => {
   arrowRight.classList.add('arrow');
 };
 
-window.onload = () => {
-  generateLayout();
-  generateKeys(language);
-  setKeySize();
-  serArrowSvg();
-};
-
 const setStyleByPressedNormalBtn = (event) => {
   const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
+  console.log(keys);
   keys.forEach((el) => {
     if (el.textContent === event.key) {
       el.closest('.key').classList.add('active');
@@ -168,8 +169,25 @@ const getSpacialCode = (event) => {
   }
 };
 
+const setLanguage = (event) => {
+  if (event.code === 'ControlLeft') {
+    firstKey.push(event.code);
+  }
+  if (event.code === 'ShiftLeft') {
+    if (firstKey.includes('ControlLeft')) {
+      // eslint-disable-next-line no-constant-condition, no-unused-expressions
+      language === 'en' ? language = 'ru' : language = 'en';
+      removeLayout();
+      generateKeys(language);
+      setKeySize();
+    }
+    getSpacialCode(event);
+  }
+};
+
 window.onkeydown = (event) => {
   getSpacialCode(event);
+  setLanguage(event);
 };
 
 window.onkeyup = (event) => {
@@ -181,4 +199,12 @@ window.onkeyup = (event) => {
       }
     });
   }
+  firstKey = [];
+};
+
+window.onload = () => {
+  generateLayout();
+  generateKeys(language);
+  setKeySize();
+  serArrowSvg();
 };
