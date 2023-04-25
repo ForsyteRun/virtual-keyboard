@@ -68,3 +68,9 @@ body {
     background-image: url("./../images/svg/caret-right-solid.svg");
   }
 }
+
+.active {
+  transform: translate(2px, 2px);
+  background: rgb(55, 115, 20);
+  color: aliceblue;
+}
