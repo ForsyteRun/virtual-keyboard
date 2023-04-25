@@ -18,6 +18,8 @@ const generateLayout = () => {
   title.textContent = 'RSS витруальная клавиатура';
 
   const textArea = document.createElement('textarea');
+  textArea.setAttribute('cols', '40');
+  textArea.setAttribute('rows', '5');
   textArea.className = 'input input__container';
 
   const keyBoard = document.createElement('div');
@@ -88,13 +90,50 @@ window.onload = () => {
   serArrowSvg();
 };
 
-window.onkeydown = (event) => {
+const setStyleByPressedNormalBtn = (event) => {
+  const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
   keys.forEach((el) => {
     if (el.textContent === event.key) {
       el.closest('.key').classList.add('active');
+      textArea.value += event.key;
     }
   });
+};
+
+const setStyleByPressedSpecialBtn = (selector) => {
+  const specialBtn = document.querySelector(`${selector}`);
+  specialBtn.classList.add('active');
+};
+
+const getSpacialCode = (event) => {
+  switch (event.code) {
+    case 'ShiftLeft':
+      setStyleByPressedSpecialBtn('.key41');
+      break;
+    case 'ShiftRight':
+      setStyleByPressedSpecialBtn('.key53');
+      break;
+    case 'AltLeft':
+      setStyleByPressedSpecialBtn('.key56');
+      break;
+    case 'AltRight':
+      setStyleByPressedSpecialBtn('.key58');
+      break;
+    case 'ControlLeft':
+      setStyleByPressedSpecialBtn('.key54');
+      break;
+    case 'ControlRight':
+      setStyleByPressedSpecialBtn('.key62');
+      break;
+    default:
+      setStyleByPressedNormalBtn(event);
+      break;
+  }
+};
+
+window.onkeydown = (event) => {
+  getSpacialCode(event);
 };
 
 window.onkeyup = (event) => {
