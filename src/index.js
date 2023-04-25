@@ -4,6 +4,7 @@ import './sass/main.scss';
 const data = {
   en: ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'],
   ru: ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'CapsLock', 'ф', 'ы', 'и', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'AltGraph', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'],
+  letters: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'],
 };
 
 const language = 'en';
@@ -106,6 +107,28 @@ const setStyleByPressedSpecialBtn = (selector) => {
   specialBtn.classList.add('active');
 };
 
+const setStyleToCapsLock = () => {
+  const capsLock = document.querySelector('.key28');
+  const keys = document.querySelectorAll('.key span');
+  if (capsLock.classList.contains('active')) {
+    keys.forEach((key) => {
+      if (data.letters.includes(key.textContent.toLowerCase())) {
+        // eslint-disable-next-line no-param-reassign
+        key.textContent = key.textContent.toLowerCase();
+      }
+      capsLock.classList.remove('active');
+    });
+  } else {
+    keys.forEach((key) => {
+      if (data.letters.includes(key.textContent)) {
+        // eslint-disable-next-line no-param-reassign
+        key.textContent = key.textContent.toUpperCase();
+      }
+      capsLock.classList.add('active');
+    });
+  }
+};
+
 const getSpacialCode = (event) => {
   const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
@@ -129,6 +152,7 @@ const getSpacialCode = (event) => {
       setStyleByPressedSpecialBtn('.key62');
       break;
     case 'CapsLock':
+      setStyleToCapsLock();
       break;
     case 'Tab': // TODO: need fn;
       keys.forEach((el) => {
@@ -150,9 +174,11 @@ window.onkeydown = (event) => {
 
 window.onkeyup = (event) => {
   const keys = document.querySelectorAll('.key span');
-  keys.forEach((el) => {
-    if (el.textContent === event.key) {
-      el.closest('.key').classList.remove('active');
-    }
-  });
+  if (event.code !== 'CapsLock') {
+    keys.forEach((el) => {
+      if (el.textContent === event.key) {
+        el.closest('.key').classList.remove('active');
+      }
+    });
+  }
 };
