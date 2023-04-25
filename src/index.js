@@ -107,6 +107,8 @@ const setStyleByPressedSpecialBtn = (selector) => {
 };
 
 const getSpacialCode = (event) => {
+  const textArea = document.querySelector('textarea');
+  const keys = document.querySelectorAll('.key span');
   switch (event.code) {
     case 'ShiftLeft':
       setStyleByPressedSpecialBtn('.key41');
@@ -125,6 +127,16 @@ const getSpacialCode = (event) => {
       break;
     case 'ControlRight':
       setStyleByPressedSpecialBtn('.key62');
+      break;
+    case 'CapsLock':
+      break;
+    case 'Tab': // TODO: need fn;
+      keys.forEach((el) => {
+        if (el.textContent === event.key) {
+          el.closest('.key').classList.add('active');
+          textArea.value += '  ';
+        }
+      });
       break;
     default:
       setStyleByPressedNormalBtn(event);
