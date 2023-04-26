@@ -10,6 +10,12 @@ const data = {
 let language = 'en';
 let firstKey = [];
 
+let capsLockActive = false;
+
+const capsLockStorage = () => {
+
+}
+
 const generateLayout = () => {
   const body = document.querySelector('body');
 
@@ -94,8 +100,8 @@ const serArrowSvg = () => {
 const setStyleByPressedNormalBtn = (event) => {
   const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
-  console.log(keys);
   keys.forEach((el) => {
+    console.log(el.textContent, event.key);
     if (el.textContent === event.key) {
       el.closest('.key').classList.add('active');
       textArea.value += event.key;
@@ -207,4 +213,8 @@ window.onload = () => {
   generateKeys(language);
   setKeySize();
   serArrowSvg();
+};
+
+window.onbeforeunload = () => {
+  localStorage.setItem('CapsLock', capsLockActive);
 };
