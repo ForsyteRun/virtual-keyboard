@@ -12,10 +12,6 @@ let firstKey = [];
 
 let capsLockActive = false;
 
-const capsLockStorage = () => {
-
-}
-
 const generateLayout = () => {
   const body = document.querySelector('body');
 
@@ -101,7 +97,6 @@ const setStyleByPressedNormalBtn = (event) => {
   const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
   keys.forEach((el) => {
-    console.log(el.textContent, event.key);
     if (el.textContent === event.key) {
       el.closest('.key').classList.add('active');
       textArea.value += event.key;
@@ -117,21 +112,25 @@ const setStyleByPressedSpecialBtn = (selector) => {
 const setStyleToCapsLock = () => {
   const capsLock = document.querySelector('.key28');
   const keys = document.querySelectorAll('.key span');
-  if (capsLock.classList.contains('active')) {
-    keys.forEach((key) => {
-      if (data.letters.includes(key.textContent.toLowerCase())) {
-        // eslint-disable-next-line no-param-reassign
-        key.textContent = key.textContent.toLowerCase();
-      }
-      capsLock.classList.remove('active');
-    });
-  } else {
+  if (!capsLockActive) {
     keys.forEach((key) => {
       if (data.letters.includes(key.textContent)) {
         // eslint-disable-next-line no-param-reassign
         key.textContent = key.textContent.toUpperCase();
       }
       capsLock.classList.add('active');
+      capsLockActive = true;
+      localStorage.setItem('CapsLock', capsLockActive);
+    });
+  } else {
+    keys.forEach((key) => {
+      if (data.letters.includes(key.textContent.toLowerCase())) {
+        // eslint-disable-next-line no-param-reassign
+        key.textContent = key.textContent.toLowerCase();
+      }
+      capsLock.classList.remove('active');
+      capsLockActive = false;
+      localStorage.setItem('CapsLock', capsLockActive);
     });
   }
 };
@@ -191,6 +190,13 @@ const setLanguage = (event) => {
   }
 };
 
+// const capsLockStorage = () => {
+//   const capsFromStorage = localStorage.getItem('CapsLock');
+//   // capsLockActive = capsFromStorage;
+//   setStyleToCapsLock();
+//   console.log(capsFromStorage);
+// };
+
 window.onkeydown = (event) => {
   getSpacialCode(event);
   setLanguage(event);
@@ -213,8 +219,9 @@ window.onload = () => {
   generateKeys(language);
   setKeySize();
   serArrowSvg();
+  // capsLockStorage();
 };
 
-window.onbeforeunload = () => {
-  localStorage.setItem('CapsLock', capsLockActive);
-};
+// window.onbeforeunload = () => {
+//   localStorage.setItem('CapsLock', capsLockActive);
+// };
