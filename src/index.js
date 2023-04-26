@@ -112,7 +112,9 @@ const setStyleByPressedSpecialBtn = (selector) => {
 const setStyleToCapsLock = () => {
   const capsLock = document.querySelector('.key28');
   const keys = document.querySelectorAll('.key span');
+  console.log(typeof capsLockActive);
   if (capsLockActive) {
+    console.log(33);
     keys.forEach((key) => {
       if (data.letters.includes(key.textContent)) {
         // eslint-disable-next-line no-param-reassign
@@ -120,7 +122,7 @@ const setStyleToCapsLock = () => {
       }
       capsLock.classList.add('active');
       // capsLockActive = true;
-      localStorage.setItem('CapsLock', capsLockActive);
+      // localStorage.setItem('CapsLock', capsLockActive);
     });
   } else {
     keys.forEach((key) => {
@@ -130,7 +132,7 @@ const setStyleToCapsLock = () => {
       }
       capsLock.classList.remove('active');
       // capsLockActive = false;
-      localStorage.setItem('CapsLock', capsLockActive);
+      // localStorage.setItem('CapsLock', capsLockActive);
     });
   }
 };
@@ -159,6 +161,7 @@ const getSpacialCode = (event) => {
       break;
     case 'CapsLock':
       capsLockActive = !capsLockActive;
+      localStorage.setItem('CapsLock', capsLockActive);
       setStyleToCapsLock();
       break;
     case 'Tab': // TODO: need fn;
@@ -191,12 +194,11 @@ const setLanguage = (event) => {
   }
 };
 
-// const capsLockStorage = () => {
-//   const capsFromStorage = localStorage.getItem('CapsLock');
-//   // capsLockActive = capsFromStorage;
-//   setStyleToCapsLock();
-//   console.log(capsFromStorage);
-// };
+const capsLockStorage = () => {
+  const capsFromStorage = localStorage.getItem('CapsLock');
+  capsLockActive = JSON.parse(capsFromStorage === 'true');
+  setStyleToCapsLock();
+};
 
 window.onkeydown = (event) => {
   getSpacialCode(event);
@@ -220,7 +222,7 @@ window.onload = () => {
   generateKeys(language);
   setKeySize();
   serArrowSvg();
-  // capsLockStorage();
+  capsLockStorage();
 };
 
 // window.onbeforeunload = () => {
