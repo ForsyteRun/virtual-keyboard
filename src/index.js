@@ -112,14 +112,14 @@ const setStyleByPressedSpecialBtn = (selector) => {
 const setStyleToCapsLock = () => {
   const capsLock = document.querySelector('.key28');
   const keys = document.querySelectorAll('.key span');
-  if (!capsLockActive) {
+  if (capsLockActive) {
     keys.forEach((key) => {
       if (data.letters.includes(key.textContent)) {
         // eslint-disable-next-line no-param-reassign
         key.textContent = key.textContent.toUpperCase();
       }
       capsLock.classList.add('active');
-      capsLockActive = true;
+      // capsLockActive = true;
       localStorage.setItem('CapsLock', capsLockActive);
     });
   } else {
@@ -129,7 +129,7 @@ const setStyleToCapsLock = () => {
         key.textContent = key.textContent.toLowerCase();
       }
       capsLock.classList.remove('active');
-      capsLockActive = false;
+      // capsLockActive = false;
       localStorage.setItem('CapsLock', capsLockActive);
     });
   }
@@ -158,6 +158,7 @@ const getSpacialCode = (event) => {
       setStyleByPressedSpecialBtn('.key62');
       break;
     case 'CapsLock':
+      capsLockActive = !capsLockActive;
       setStyleToCapsLock();
       break;
     case 'Tab': // TODO: need fn;
