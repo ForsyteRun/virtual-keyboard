@@ -1,4 +1,3 @@
-// import './index.html';
 import './sass/main.scss';
 
 const data = {
@@ -12,6 +11,7 @@ const data = {
 
 let language = 'en';
 let firstKey = [];
+let newValue = '';
 
 let capsLockActive = false;
 
@@ -181,6 +181,11 @@ const getSpacialCode = (event) => {
           textArea.value += ' ';
         }
       });
+      break;
+    case 'Backspace':
+      setStyleByPressedSpecialBtn('.key13');
+      newValue = textArea.value.slice(0, textArea.value.length - 1);
+      textArea.value = newValue;
       break;
     default:
       setStyleByPressedNormalBtn(event);
