@@ -173,6 +173,15 @@ const getSpacialCode = (event) => {
         }
       });
       break;
+    case 'Space': // TODO: need fn;
+      event.preventDefault();
+      keys.forEach((el) => {
+        if (el.textContent === event.key) {
+          el.closest('.key').classList.add('active');
+          textArea.value += ' ';
+        }
+      });
+      break;
     default:
       setStyleByPressedNormalBtn(event);
       break;
