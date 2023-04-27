@@ -165,6 +165,7 @@ const getSpacialCode = (event) => {
       setStyleToCapsLock();
       break;
     case 'Tab': // TODO: need fn;
+      event.preventDefault();
       keys.forEach((el) => {
         if (el.textContent === event.key) {
           el.closest('.key').classList.add('active');
