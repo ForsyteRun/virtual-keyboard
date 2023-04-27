@@ -94,6 +94,7 @@ const serArrowSvg = () => {
 };
 
 const setStyleByPressedNormalBtn = (event) => {
+  console.log(22);
   const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
   keys.forEach((el) => {
@@ -102,6 +103,7 @@ const setStyleByPressedNormalBtn = (event) => {
       textArea.value += event.key;
     }
   });
+  textArea.blur();
 };
 
 const setStyleByPressedSpecialBtn = (selector) => {
@@ -112,17 +114,13 @@ const setStyleByPressedSpecialBtn = (selector) => {
 const setStyleToCapsLock = () => {
   const capsLock = document.querySelector('.key28');
   const keys = document.querySelectorAll('.key span');
-  console.log(typeof capsLockActive);
   if (capsLockActive) {
-    console.log(33);
     keys.forEach((key) => {
       if (data.letters.includes(key.textContent)) {
         // eslint-disable-next-line no-param-reassign
         key.textContent = key.textContent.toUpperCase();
       }
       capsLock.classList.add('active');
-      // capsLockActive = true;
-      // localStorage.setItem('CapsLock', capsLockActive);
     });
   } else {
     keys.forEach((key) => {
@@ -131,8 +129,6 @@ const setStyleToCapsLock = () => {
         key.textContent = key.textContent.toLowerCase();
       }
       capsLock.classList.remove('active');
-      // capsLockActive = false;
-      // localStorage.setItem('CapsLock', capsLockActive);
     });
   }
 };
