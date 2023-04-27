@@ -206,6 +206,7 @@ const setLanguage = (event) => {
     if (firstKey.includes('ControlLeft')) {
       // eslint-disable-next-line no-constant-condition, no-unused-expressions
       language === 'en' ? language = 'ru' : language = 'en';
+      localStorage.setItem('language', language);
       removeLayout();
       generateKeys(language);
       setKeySize();
@@ -219,6 +220,11 @@ const capsLockStorage = () => {
   const capsFromStorage = localStorage.getItem('CapsLock');
   capsLockActive = JSON.parse(capsFromStorage === 'true');
   setStyleToCapsLock();
+};
+
+const languageStorage = () => {
+  const capsFromStorage = localStorage.getItem('language');
+  language = capsFromStorage;
 };
 
 window.onkeydown = (event) => {
@@ -239,9 +245,10 @@ window.onkeyup = (event) => {
 };
 
 window.onload = () => {
+  languageStorage();
+  capsLockStorage();
   generateLayout();
   generateKeys(language);
   setKeySize();
   serArrowSvg();
-  capsLockStorage();
 };
