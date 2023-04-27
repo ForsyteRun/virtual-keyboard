@@ -187,6 +187,10 @@ const getSpacialCode = (event) => {
       newValue = textArea.value.slice(0, textArea.value.length - 1);
       textArea.value = newValue;
       break;
+    case 'Enter':
+      setStyleByPressedSpecialBtn('.key40');
+      newValue = `${textArea.value}\r\n`;
+      break;
     default:
       setStyleByPressedNormalBtn(event);
       break;
