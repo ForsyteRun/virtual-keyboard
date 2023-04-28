@@ -7,6 +7,10 @@ const data = {
     en: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'],
     ru: ['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю'],
   },
+  symbols: {
+    en: ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+'],
+    ru: ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+'],
+  },
 };
 
 let language = 'en';
@@ -23,7 +27,7 @@ const generateLayout = () => {
 
   const title = document.createElement('p');
   title.className = 'title';
-  title.textContent = 'RSS витруальная клавиатура';
+  title.textContent = 'RSS виртуальная клавиатура';
 
   const textArea = document.createElement('textarea');
   textArea.setAttribute('cols', '40');
@@ -42,6 +46,16 @@ const generateLayout = () => {
 const removeKeyBoard = () => {
   const keyBoard = document.querySelector('.keyBoard ');
   keyBoard.innerHTML = '';
+};
+
+const getSymbols = (obj = data.symbols) => {
+  const keyBoard = document.querySelectorAll('.key');
+  const symbolsDOM = Array.from(keyBoard).slice(0, 13);
+  const currentLang = obj[language];
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < symbolsDOM.length; i++) {
+    keyBoard[i].innerHTML = `<span>${currentLang[i]}</span>`;
+  }
 };
 
 const generateKeys = (lang) => {
@@ -113,28 +127,36 @@ const setStyleByPressedSpecialBtn = (selector) => {
   specialBtn.classList.add('active');
 };
 
+const lettersToUpperCase = () => {
+  const keys = document.querySelectorAll('.key span');
+  keys.forEach((key) => {
+    // eslint-disable-next-line no-constant-condition
+    if (data.letters[language].includes(key.textContent)) {
+      // eslint-disable-next-line no-param-reassign
+      key.textContent = key.textContent.toUpperCase();
+    }
+  });
+};
+
+const lettersToLowerCase = () => {
+  const keys = document.querySelectorAll('.key span');
+  keys.forEach((key) => {
+    // eslint-disable-next-line no-constant-condition
+    if (data.letters[language].includes(key.textContent.toLowerCase())) {
+      // eslint-disable-next-line no-param-reassign
+      key.textContent = key.textContent.toLowerCase();
+    }
+  });
+};
+
 const setStyleToCapsLock = () => {
   const capsLock = document.querySelector('.key28');
-  const keys = document.querySelectorAll('.key span');
-  console.log(data.letters, language, capsLockActive);
   if (capsLockActive) {
-    keys.forEach((key) => {
-      // eslint-disable-next-line no-constant-condition
-      if (data.letters[language].includes(key.textContent)) {
-        // eslint-disable-next-line no-param-reassign
-        key.textContent = key.textContent.toUpperCase();
-      }
-      capsLock.classList.add('active');
-    });
+    lettersToUpperCase();
+    capsLock.classList.add('active');
   } else {
-    keys.forEach((key) => {
-      // eslint-disable-next-line no-constant-condition
-      if (data.letters[language].includes(key.textContent.toLowerCase())) {
-        // eslint-disable-next-line no-param-reassign
-        key.textContent = key.textContent.toLowerCase();
-      }
-      capsLock.classList.remove('active');
-    });
+    lettersToLowerCase();
+    capsLock.classList.remove('active');
   }
 };
 
@@ -143,10 +165,14 @@ const getSpacialCode = (event) => {
   const keys = document.querySelectorAll('.key span');
   switch (event.code) {
     case 'ShiftLeft':
+      getSymbols();
       setStyleByPressedSpecialBtn('.key41');
+      lettersToUpperCase();
       break;
     case 'ShiftRight':
+      getSymbols();
       setStyleByPressedSpecialBtn('.key53');
+      lettersToUpperCase();
       break;
     case 'AltLeft':
       setStyleByPressedSpecialBtn('.key56');
@@ -220,7 +246,6 @@ const setLanguage = (event) => {
 const capsLockStorage = () => {
   const capsFromStorage = localStorage.getItem('CapsLock');
   capsLockActive = JSON.parse(capsFromStorage === 'true');
-  console.log(capsLockActive);
   setStyleToCapsLock();
 };
 
@@ -242,6 +267,10 @@ window.onkeyup = (event) => {
         el.closest('.key').classList.remove('active');
       }
     });
+  }
+  if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+    getSymbols(data);
+    lettersToLowerCase();
   }
   firstKey = [];
 };
