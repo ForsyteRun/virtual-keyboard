@@ -15,8 +15,6 @@ let newValue = '';
 
 let capsLockActive = false;
 
-// localStorage.setItem('language', language);
-
 const generateLayout = () => {
   const body = document.querySelector('body');
 
@@ -41,7 +39,7 @@ const generateLayout = () => {
   wrapper.append(keyBoard);
 };
 
-const removeLayout = () => {
+const removeKeyBoard = () => {
   const keyBoard = document.querySelector('.keyBoard ');
   keyBoard.innerHTML = '';
 };
@@ -118,6 +116,7 @@ const setStyleByPressedSpecialBtn = (selector) => {
 const setStyleToCapsLock = () => {
   const capsLock = document.querySelector('.key28');
   const keys = document.querySelectorAll('.key span');
+  console.log(data.letters, language, capsLockActive);
   if (capsLockActive) {
     keys.forEach((key) => {
       // eslint-disable-next-line no-constant-condition
@@ -209,7 +208,7 @@ const setLanguage = (event) => {
       // eslint-disable-next-line no-constant-condition, no-unused-expressions
       language === 'en' ? language = 'ru' : language = 'en';
       localStorage.setItem('language', language);
-      removeLayout();
+      removeKeyBoard();
       generateKeys(language);
       setKeySize();
     }
@@ -221,6 +220,7 @@ const setLanguage = (event) => {
 const capsLockStorage = () => {
   const capsFromStorage = localStorage.getItem('CapsLock');
   capsLockActive = JSON.parse(capsFromStorage === 'true');
+  console.log(capsLockActive);
   setStyleToCapsLock();
 };
 
@@ -248,11 +248,11 @@ window.onkeyup = (event) => {
 
 window.onload = () => {
   languageStorage();
-  capsLockStorage();
   generateLayout();
   generateKeys(language);
   setKeySize();
   serArrowSvg();
+  capsLockStorage();
 };
 
 window.onbeforeunload = () => {
