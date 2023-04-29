@@ -36,10 +36,40 @@ const generateLayout = () => {
   const keyBoard = document.createElement('div');
   keyBoard.className = 'keyBoard keyBoard__container';
 
+  const arrowMnemonikUp = document.createElement('div');
+  arrowMnemonikUp.className = 'arrow-mnemonik_up';
+  arrowMnemonikUp.innerHTML = '&#8593';
+
+  const arrowMnemonikDown = document.createElement('div');
+  arrowMnemonikDown.className = 'arrow-mnemonik_down';
+  arrowMnemonikDown.innerHTML = '&#8595';
+
+  const arrowMnemonikRight = document.createElement('div');
+  arrowMnemonikRight.className = 'arrow-mnemonik_right';
+  arrowMnemonikRight.innerHTML = '&#8594';
+
+  const arrowMnemonikLeft = document.createElement('div');
+  arrowMnemonikLeft.className = 'arrow-mnemonik_left';
+  arrowMnemonikLeft.innerHTML = '&#8592';
+
+  const text = document.createElement('p');
+  text.textContent = 'Клавиатура создана в операционной системе Windows';
+  text.className = 'content';
+
+  const subText = document.createElement('p');
+  subText.textContent = 'Для переключения языка комбинация: левыe ctrl + shift';
+  subText.className = 'content';
+
   body.append(wrapper);
   wrapper.append(title);
   wrapper.append(textArea);
   wrapper.append(keyBoard);
+  body.append(text);
+  body.append(subText);
+  body.append(arrowMnemonikUp);
+  body.append(arrowMnemonikDown);
+  body.append(arrowMnemonikRight);
+  body.append(arrowMnemonikLeft);
 };
 
 const removeKeyBoard = () => {
@@ -160,6 +190,10 @@ const setStyleToCapsLock = () => {
 const getSpacialCode = (event) => {
   const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
+  const arrowUp = document.querySelector('.arrow-mnemonik_up');
+  const arrowDown = document.querySelector('.arrow-mnemonik_down');
+  const arrowLeft = document.querySelector('.arrow-mnemonik_left');
+  const arrowRight = document.querySelector('.arrow-mnemonik_right');
   switch (event.code) {
     case 'ShiftLeft':
       getSymbols();
@@ -222,15 +256,19 @@ const getSpacialCode = (event) => {
       break;
     case 'ArrowUp':
       setStyleByPressedSpecialBtn('.key51');
+      textArea.value += arrowUp.textContent;
       break;
     case 'ArrowDown':
       setStyleByPressedSpecialBtn('.key60');
+      textArea.value += arrowDown.textContent;
       break;
     case 'ArrowLeft':
       setStyleByPressedSpecialBtn('.key59');
+      textArea.value += arrowLeft.textContent;
       break;
     case 'ArrowRight':
       setStyleByPressedSpecialBtn('.key61');
+      textArea.value += arrowRight.textContent;
       break;
     default:
       setStyleByPressedNormalBtn(event);
@@ -308,80 +346,6 @@ const getSpecialKeysByClick = (event) => {
   } else if (event.target.closest('.key')) {
     textArea.value += event.target.textContent;
   }
-  // switch (event.target) {
-  //   case 'ShiftLeft':
-  //     getSymbols();
-  //     setStyleByPressedSpecialBtn('.key41');
-  //     lettersToUpperCase();
-  //     break;
-  //   case 'ShiftRight':
-  //     getSymbols();
-  //     setStyleByPressedSpecialBtn('.key53');
-  //     lettersToUpperCase();
-  //     break;
-  //   case 'AltLeft':
-  //     setStyleByPressedSpecialBtn('.key56');
-  //     break;
-  //   case 'AltRight':
-  //     setStyleByPressedSpecialBtn('.key58');
-  //     break;
-  //   case 'ControlLeft':
-  //     setStyleByPressedSpecialBtn('.key54');
-  //     break;
-  //   case 'ControlRight':
-  //     setStyleByPressedSpecialBtn('.key62');
-  //     break;
-  //   case 'CapsLock':
-  //     capsLockActive = !capsLockActive;
-  //     localStorage.setItem('CapsLock', capsLockActive);
-  //     setStyleToCapsLock();
-  //     break;
-  //   case 'Tab': // TODO: need fn;
-  //     event.preventDefault();
-  //     keys.forEach((el) => {
-  //       if (el.textContent === event.key) {
-  //         el.closest('.key').classList.add('active');
-  //         textArea.value += '  ';
-  //       }
-  //     });
-  //     break;
-  //   case 'Space': // TODO: need fn;
-  //     event.preventDefault();
-  //     keys.forEach((el) => {
-  //       if (el.textContent === event.key) {
-  //         el.closest('.key').classList.add('active');
-  //         textArea.value += ' ';
-  //       }
-  //     });
-  //     break;
-  //   case 'Backspace':
-  //     textArea.focus();
-  //     setStyleByPressedSpecialBtn('.key13');
-  //     break;
-  //   case 'Enter':
-  //     setStyleByPressedSpecialBtn('.key40');
-  //     textArea.focus();
-  //     break;
-  //   case 'Delete':
-  //     textArea.focus();
-  //     setStyleByPressedSpecialBtn('.key27');
-  //     break;
-  //   case 'ArrowUp':
-  //     setStyleByPressedSpecialBtn('.key51');
-  //     break;
-  //   case 'ArrowDown':
-  //     setStyleByPressedSpecialBtn('.key60');
-  //     break;
-  //   case 'ArrowLeft':
-  //     setStyleByPressedSpecialBtn('.key59');
-  //     break;
-  //   case 'ArrowRight':
-  //     setStyleByPressedSpecialBtn('.key61');
-  //     break;
-  //   default:
-  //     setStyleByPressedNormalBtn(event);
-  //     break;
-  // }
 };
 
 const setListenertoKeyBoard = () => {
@@ -390,6 +354,11 @@ const setListenertoKeyBoard = () => {
     getSpecialKeysByClick(event);
   });
   keyBoard.addEventListener('mousedown', (event) => {
+    const textArea = document.querySelector('textarea');
+    const arrowUp = document.querySelector('.arrow-mnemonik_up');
+    const arrowDown = document.querySelector('.arrow-mnemonik_down');
+    const arrowLeft = document.querySelector('.arrow-mnemonik_left');
+    const arrowRight = document.querySelector('.arrow-mnemonik_right');
     if (event.target.classList.contains('key41') || event.target.closest('.key41')) {
       getSymbols();
       lettersToUpperCase();
@@ -398,6 +367,14 @@ const setListenertoKeyBoard = () => {
       getSymbols();
       lettersToUpperCase();
       serArrowSvg();
+    } else if (event.target.classList.contains('key59') || event.target.closest('.key59')) {
+      textArea.value += arrowLeft.textContent;
+    } else if (event.target.classList.contains('key51') || event.target.closest('.key51')) {
+      textArea.value += arrowUp.textContent;
+    } else if (event.target.classList.contains('key60') || event.target.closest('.key60')) {
+      textArea.value += arrowDown.textContent;
+    } else if (event.target.classList.contains('key61') || event.target.closest('.key61')) {
+      textArea.value += arrowRight.textContent;
     }
   });
   keyBoard.addEventListener('mouseup', (event) => {
@@ -423,7 +400,6 @@ window.onkeydown = (event) => {
 window.onkeyup = (event) => {
   const keys = document.querySelectorAll('.key span');
   if (event.code !== 'CapsLock') {
-    console.log(event.code);
     keys.forEach((el) => {
       if (el.textContent === event.key) {
         el.closest('.key').classList.remove('active');

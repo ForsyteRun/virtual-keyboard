@@ -74,3 +74,18 @@ body {
   background: rgb(55, 115, 20);
   color: aliceblue;
 }
+
+.arrow-mnemonik {
+  &_up,
+  &_down,
+  &_left,
+  &_right {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+.content {
+  font-size: 18px;
+  text-align: center;
+}
