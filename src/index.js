@@ -160,6 +160,7 @@ const setStyleToCapsLock = () => {
 const getSpacialCode = (event) => {
   const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
+  console.log(event.code);
   switch (event.code) {
     case 'ShiftLeft':
       getSymbols();
@@ -218,6 +219,18 @@ const getSpacialCode = (event) => {
       textArea.focus();
       setStyleByPressedSpecialBtn('.key27');
       break;
+    case 'ArrowUp':
+      setStyleByPressedSpecialBtn('.key51');
+      break;
+    case 'ArrowDown':
+      setStyleByPressedSpecialBtn('.key60');
+      break;
+    case 'ArrowLeft':
+      setStyleByPressedSpecialBtn('.key59');
+      break;
+    case 'ArrowRight':
+      setStyleByPressedSpecialBtn('.key61');
+      break;
     default:
       setStyleByPressedNormalBtn(event);
       break;
@@ -270,8 +283,22 @@ window.onkeyup = (event) => {
   if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
     getSymbols(data);
     lettersToLowerCase();
+  } else if (event.code === 'ArrowLeft') {
+    const arrowLeft = document.querySelector('.key59');
+    arrowLeft.classList.remove('active');
+  } else if (event.code === 'ArrowRight') {
+    const arrowRight = document.querySelector('.key61');
+    arrowRight.classList.remove('active');
+  } else if (event.code === 'ArrowUp') {
+    const arrowUp = document.querySelector('.key51');
+    arrowUp.classList.remove('active');
+  } else if (event.code === 'ArrowDown') {
+    const arrowDown = document.querySelector('.key60');
+    arrowDown.classList.remove('active');
   }
+
   firstKey = [];
+  serArrowSvg();
 };
 
 window.onload = () => {
