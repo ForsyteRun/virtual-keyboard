@@ -210,8 +210,6 @@ const getSpacialCode = (event) => {
       break;
     case 'Backspace':
       setStyleByPressedSpecialBtn('.key13');
-      newValue = textArea.value.slice(0, textArea.value.length - 1);
-      textArea.value = newValue;
       break;
     case 'Enter':
       setStyleByPressedSpecialBtn('.key40');
