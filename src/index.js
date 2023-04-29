@@ -291,6 +291,13 @@ const getSpecialKeysByClick = (event) => {
   } else if (event.target.classList.contains('key40') || event.target.closest('.key40')) {
     textArea.focus();
     textArea.value += '\n';
+  } else if (event.target.classList.contains('key27') || event.target.closest('.key27')) {
+    textArea.focus();
+    const pos = textArea.selectionStart;
+    if (pos !== textArea.value - 1) {
+      textArea.value = textArea.value.slice(0, pos) + textArea.value.slice(pos + 1);
+      textArea.setSelectionRange(pos, pos + 1);
+    }
   } else if (event.target.classList.contains('key13') || event.target.closest('.key13')) {
     textArea.focus();
     const pos = textArea.selectionStart;
