@@ -265,13 +265,100 @@ const languageStorage = () => {
   language = capsFromStorage;
 };
 
-const setListener = () => {
+const getSpecialKeysByClick = (event) => {
+  const textArea = document.querySelector('textarea');
+  // const keys = document.querySelectorAll('.key span');
+  if (event.target.classList.contains('key14')) {
+    textArea.focus();
+    textArea.value += '  ';
+    event.target.classList.add('active');
+  } else if (event.target.closest('.key')) {
+    textArea.value += event.target.textContent;
+  }
+  // switch (event.target) {
+  //   case 'ShiftLeft':
+  //     getSymbols();
+  //     setStyleByPressedSpecialBtn('.key41');
+  //     lettersToUpperCase();
+  //     break;
+  //   case 'ShiftRight':
+  //     getSymbols();
+  //     setStyleByPressedSpecialBtn('.key53');
+  //     lettersToUpperCase();
+  //     break;
+  //   case 'AltLeft':
+  //     setStyleByPressedSpecialBtn('.key56');
+  //     break;
+  //   case 'AltRight':
+  //     setStyleByPressedSpecialBtn('.key58');
+  //     break;
+  //   case 'ControlLeft':
+  //     setStyleByPressedSpecialBtn('.key54');
+  //     break;
+  //   case 'ControlRight':
+  //     setStyleByPressedSpecialBtn('.key62');
+  //     break;
+  //   case 'CapsLock':
+  //     capsLockActive = !capsLockActive;
+  //     localStorage.setItem('CapsLock', capsLockActive);
+  //     setStyleToCapsLock();
+  //     break;
+  //   case 'Tab': // TODO: need fn;
+  //     event.preventDefault();
+  //     keys.forEach((el) => {
+  //       if (el.textContent === event.key) {
+  //         el.closest('.key').classList.add('active');
+  //         textArea.value += '  ';
+  //       }
+  //     });
+  //     break;
+  //   case 'Space': // TODO: need fn;
+  //     event.preventDefault();
+  //     keys.forEach((el) => {
+  //       if (el.textContent === event.key) {
+  //         el.closest('.key').classList.add('active');
+  //         textArea.value += ' ';
+  //       }
+  //     });
+  //     break;
+  //   case 'Backspace':
+  //     textArea.focus();
+  //     setStyleByPressedSpecialBtn('.key13');
+  //     break;
+  //   case 'Enter':
+  //     setStyleByPressedSpecialBtn('.key40');
+  //     textArea.focus();
+  //     break;
+  //   case 'Delete':
+  //     textArea.focus();
+  //     setStyleByPressedSpecialBtn('.key27');
+  //     break;
+  //   case 'ArrowUp':
+  //     setStyleByPressedSpecialBtn('.key51');
+  //     break;
+  //   case 'ArrowDown':
+  //     setStyleByPressedSpecialBtn('.key60');
+  //     break;
+  //   case 'ArrowLeft':
+  //     setStyleByPressedSpecialBtn('.key59');
+  //     break;
+  //   case 'ArrowRight':
+  //     setStyleByPressedSpecialBtn('.key61');
+  //     break;
+  //   default:
+  //     setStyleByPressedNormalBtn(event);
+  //     break;
+  // }
+};
+
+const setListenertoKeyBoard = () => {
   const keyBoard = document.querySelector('.keyBoard');
   keyBoard.addEventListener('click', (event) => {
     const textArea = document.querySelector('textarea');
-    if (event.target.closest('.key')) {
-      textArea.value += event.target.textContent;
-    }
+    // if (event.target.closest('.key')) {
+    //   textArea.value += event.target.textContent;
+    // }
+    getSpecialKeysByClick(event);
   });
 };
 
@@ -317,7 +404,7 @@ window.onload = () => {
   setKeySize();
   serArrowSvg();
   capsLockStorage();
-  setListener();
+  setListenertoKeyBoard();
 };
 
 window.onbeforeunload = () => {
