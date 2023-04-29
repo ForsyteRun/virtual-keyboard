@@ -112,7 +112,6 @@ const setStyleByPressedNormalBtn = (event) => {
   const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
   keys.forEach((el) => {
-    console.log(event.key, el.textContent);
     if (el.textContent === event.key) {
       el.closest('.key').classList.add('active');
       textArea.value += event.key;
@@ -179,9 +178,11 @@ const getSpacialCode = (event) => {
       setStyleByPressedSpecialBtn('.key58');
       break;
     case 'ControlLeft':
+      event.preventDefault();
       setStyleByPressedSpecialBtn('.key54');
       break;
     case 'ControlRight':
+      event.preventDefault();
       setStyleByPressedSpecialBtn('.key62');
       break;
     case 'CapsLock':
@@ -276,7 +277,20 @@ const getSpecialKeysByClick = (event) => {
     localStorage.setItem('CapsLock', capsLockActive);
     setStyleToCapsLock();
   } else if (event.target.classList.contains('key41') || event.target.closest('.key41')) {
+    textArea.value += '';
   } else if (event.target.classList.contains('key53') || event.target.closest('.key53')) {
+    textArea.value += '';
+  } else if (event.target.classList.contains('key54') || event.target.closest('.key54')) {
+    textArea.value += '';
+  } else if (event.target.classList.contains('key62') || event.target.closest('.key62')) {
+    textArea.value += '';
+  } else if (event.target.classList.contains('key56') || event.target.closest('.key56')) {
+    textArea.value += '';
+  } else if (event.target.classList.contains('key58') || event.target.closest('.key58')) {
+    textArea.value += '';
+  } else if (event.target.classList.contains('key40') || event.target.closest('.key40')) {
+    textArea.focus();
+    textArea.value += '\n';
   } else if (event.target.closest('.key')) {
     textArea.value += event.target.textContent;
   }
@@ -395,8 +409,11 @@ window.onkeydown = (event) => {
 window.onkeyup = (event) => {
   const keys = document.querySelectorAll('.key span');
   if (event.code !== 'CapsLock') {
+    console.log(event.code);
     keys.forEach((el) => {
       if (el.textContent === event.key) {
+        el.closest('.key').classList.remove('active');
+      } else {
         el.closest('.key').classList.remove('active');
       }
     });
