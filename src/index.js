@@ -354,10 +354,6 @@ const getSpecialKeysByClick = (event) => {
 const setListenertoKeyBoard = () => {
   const keyBoard = document.querySelector('.keyBoard');
   keyBoard.addEventListener('click', (event) => {
-    const textArea = document.querySelector('textarea');
-    // if (event.target.closest('.key')) {
-    //   textArea.value += event.target.textContent;
-    // }
     getSpecialKeysByClick(event);
   });
 };
