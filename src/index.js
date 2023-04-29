@@ -8,14 +8,13 @@ const data = {
     ru: ['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю'],
   },
   symbols: {
-    en: ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+'],
-    ru: ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+'],
+    en: ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '{', '}', 'Delete', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ':', '"', 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '<', '>', 'ArrowUp', '?', 'Shift', 'Ctrl', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Ctrl'],
+    ru: ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'Delete', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', 'ArrowUp', ',', 'Shift', 'Ctrl', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Ctrl'],
   },
 };
 
 let language = 'en';
 let firstKey = [];
-let newValue = '';
 
 let capsLockActive = false;// TODO refactor to is;
 // TODO for in map
@@ -50,10 +49,9 @@ const removeKeyBoard = () => {
 
 const getSymbols = (obj = data.symbols) => {
   const keyBoard = document.querySelectorAll('.key');
-  const symbolsDOM = Array.from(keyBoard).slice(0, 13);
   const currentLang = obj[language];
   // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < symbolsDOM.length; i++) {
+  for (let i = 0; i < keyBoard.length; i++) {
     keyBoard[i].innerHTML = `<span>${currentLang[i]}</span>`;
   }
 };
@@ -209,14 +207,15 @@ const getSpacialCode = (event) => {
       });
       break;
     case 'Backspace':
+      textArea.focus();
       setStyleByPressedSpecialBtn('.key13');
       break;
     case 'Enter':
       setStyleByPressedSpecialBtn('.key40');
       textArea.focus();
-      newValue = `${textArea.value}\r\n`;
       break;
     case 'Delete':
+      textArea.focus();
       setStyleByPressedSpecialBtn('.key27');
       break;
     default:
