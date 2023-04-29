@@ -267,11 +267,14 @@ const languageStorage = () => {
 
 const getSpecialKeysByClick = (event) => {
   const textArea = document.querySelector('textarea');
-  // const keys = document.querySelectorAll('.key span');
-  if (event.target.classList.contains('key14')) {
+  if (event.target.classList.contains('key14') || event.target.closest('.key14')) {
     textArea.focus();
     textArea.value += '  ';
     event.target.classList.add('active');
+  } else if (event.target.classList.contains('key28') || event.target.closest('.key28')) {
+    capsLockActive = !capsLockActive;
+    localStorage.setItem('CapsLock', capsLockActive);
+    setStyleToCapsLock();
   } else if (event.target.closest('.key')) {
     textArea.value += event.target.textContent;
   }
@@ -353,8 +356,16 @@ const getSpecialKeysByClick = (event) => {
 
 const setListenertoKeyBoard = () => {
   const keyBoard = document.querySelector('.keyBoard');
+  const keys = document.querySelectorAll('.key');
   keyBoard.addEventListener('click', (event) => {
     getSpecialKeysByClick(event);
+  });
+  keyBoard.addEventListener('mouseup', (event) => {
+    if (!event.target.classList.contains('key28')) {
+      keys.forEach((el) => {
+        el.classList.remove('active');
+      });
+    }
   });
 };
 
