@@ -160,7 +160,6 @@ const setStyleToCapsLock = () => {
 const getSpacialCode = (event) => {
   const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
-  console.log(event.code);
   switch (event.code) {
     case 'ShiftLeft':
       getSymbols();
@@ -266,6 +265,16 @@ const languageStorage = () => {
   language = capsFromStorage;
 };
 
+const setListener = () => {
+  const keyBoard = document.querySelector('.keyBoard');
+  keyBoard.addEventListener('click', (event) => {
+    const textArea = document.querySelector('textarea');
+    if (event.target.closest('.key')) {
+      textArea.value += event.target.textContent;
+    }
+  });
+};
+
 window.onkeydown = (event) => {
   getSpacialCode(event);
   setLanguage(event);
@@ -308,6 +317,7 @@ window.onload = () => {
   setKeySize();
   serArrowSvg();
   capsLockStorage();
+  setListener();
 };
 
 window.onbeforeunload = () => {
