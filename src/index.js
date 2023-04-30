@@ -141,10 +141,20 @@ const serArrowSvg = () => {
 const setStyleByPressedNormalBtn = (event) => {
   const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
+  let str = event.key;
   keys.forEach((el) => {
-    if (el.textContent === event.key) {
-      el.closest('.key').classList.add('active');
-      textArea.value += event.key;
+    if (capsLockActive) {
+      str = str.toUpperCase();
+      if (el.textContent === str) {
+        el.closest('.key').classList.add('active');
+        textArea.value += str;
+      }
+    } else {
+      str = str.toLowerCase();
+      if (el.textContent === str) {
+        el.closest('.key').classList.add('active');
+        textArea.value += str;
+      }
     }
   });
   textArea.blur();
@@ -221,7 +231,6 @@ const getSpacialCode = (event) => {
       break;
     case 'CapsLock':
       capsLockActive = !capsLockActive;
-      localStorage.setItem('CapsLock', capsLockActive);
       setStyleToCapsLock();
       break;
     case 'Tab': // TODO: need fn;
@@ -292,12 +301,6 @@ const setLanguage = (event) => {
     getSpacialCode(event);
   }
   serArrowSvg();
-};
-
-const capsLockStorage = () => {
-  const capsFromStorage = localStorage.getItem('CapsLock');
-  capsLockActive = JSON.parse(capsFromStorage === 'true');
-  setStyleToCapsLock();
 };
 
 const languageStorage = () => {
@@ -435,7 +438,6 @@ window.onload = () => {
   generateKeys(language);
   setKeySize();
   serArrowSvg();
-  capsLockStorage();
   setListenertoKeyBoard();
 };
 
