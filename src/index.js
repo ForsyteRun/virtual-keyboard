@@ -206,11 +206,13 @@ const getSpacialCode = (event) => {
   const arrowRight = document.querySelector('.arrow-mnemonik_right');
   switch (event.code) {
     case 'ShiftLeft':
+      capsLockActive = true;
       getSymbols();
       setStyleByPressedSpecialBtn('.key41');
       lettersToUpperCase();
       break;
     case 'ShiftRight':
+      capsLockActive = true;
       getSymbols();
       setStyleByPressedSpecialBtn('.key53');
       lettersToUpperCase();
@@ -385,6 +387,7 @@ const setListenertoKeyBoard = () => {
       getSymbols(data);
       lettersToLowerCase();
       event.target.classList.remove('active');
+      // capsLockActive = false;
       serArrowSvg();
     } else if (event.target.classList.contains('key53') || event.target.closest('.key53')) {
       getSymbols(data);
@@ -414,6 +417,7 @@ window.onkeyup = (event) => {
   if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
     getSymbols(data);
     lettersToLowerCase();
+    capsLockActive = false;
   } else if (event.code === 'ArrowLeft') {
     const arrowLeft = document.querySelector('.key59');
     arrowLeft.classList.remove('active');
