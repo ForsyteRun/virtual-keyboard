@@ -478,7 +478,7 @@ window.onload = () => {
   setListenertoKeyBoard();
   alert('Привет, коллега! Чуть ясности. Проект берёт данные с физической раскладки клавиатуры, тоесть с твоей! Если кнопки не работают - проверь язык ввода! Тоесть, русский будет работать только если у тебя выбран русский язык! Так же с английским. Буду благодарен за твой фидбек! Удачи в учёбе!');
 };
-document.activeElement('beforeunload', () => {
+document.addEventListener('beforeunload', () => {
   console.log(language);
   localStorage.setItem('language', language);
 });
@@ -486,4 +486,4 @@ document.activeElement('beforeunload', () => {
 
 /******/ })()
 ;
-//# sourceMappingURL=index.7f4ba0f4c177135f957f.js.map
+//# sourceMappingURL=index.4f28a2308ad2553562fc.js.map
