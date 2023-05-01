@@ -80,16 +80,14 @@ const removeKeyBoard = () => {
 const getSymbols = (obj = data.symbols) => {
   const keyBoard = document.querySelectorAll('.key');
   const currentLang = obj[language];
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < keyBoard.length; i++) {
+  for (let i = 0; i < keyBoard.length; i += 1) {
     keyBoard[i].innerHTML = `<span>${currentLang[i]}</span>`;
   }
 };
 
 const generateKeys = (lang) => {
   let initTemplate = '';
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < data[lang].length; i++) {
+  for (let i = 0; i < data[lang].length; i += 1) {
     initTemplate += `<div class='key key${[i]}'><span>${data[lang][i]}</span></div> `;
   }
   const keyBoardContainer = document.querySelector('.keyBoard__container');
@@ -168,9 +166,7 @@ const setStyleByPressedSpecialBtn = (selector) => {
 const lettersToUpperCase = () => {
   const keys = document.querySelectorAll('.key span');
   keys.forEach((key) => {
-    // eslint-disable-next-line no-constant-condition
     if (data.letters[language].includes(key.textContent)) {
-      // eslint-disable-next-line no-param-reassign
       key.textContent = key.textContent.toUpperCase();
     }
   });
@@ -180,7 +176,6 @@ const lettersToLowerCase = () => {
   const keys = document.querySelectorAll('.key span');
   keys.forEach((key) => {
     if (data.letters[language].includes(key.textContent.toLowerCase())) {
-      // eslint-disable-next-line no-param-reassign
       key.textContent = key.textContent.toLowerCase();
     }
   });
@@ -293,7 +288,7 @@ const setLanguage = (event) => {
   }
   if (event.code === 'ShiftLeft') {
     if (firstKey.includes('ControlLeft')) {
-      // eslint-disable-next-line no-constant-condition, no-unused-expressions
+      // eslint-disable-next-line no-unused-expressions
       language === 'en' ? language = 'ru' : language = 'en';
       localStorage.setItem('language', language);
       removeKeyBoard();
@@ -443,6 +438,7 @@ window.onload = () => {
   setKeySize();
   serArrowSvg();
   setListenertoKeyBoard();
+  alert('Привет, коллега! Чуть ясности. Проект берёт данные с физической раскладки клавиатуры, тоесть с твоей! Если кнопки не работают - проверь язык ввода! Тоесть, русский будет работать только если у тебя выбран русский язык! Так же с английским. Буду благодарен за твой фидбек! Удачи в учёбе!');
 };
 
 window.onbeforeunload = () => {

@@ -13,5 +13,6 @@ module.exports = {
   rules: {
     'linebreak-style': 0,
     quotes: ['error', 'single'],
+    'no-param-reassign': [2, { props: false }],
   },
 };
