@@ -342,7 +342,11 @@ const setLanguage = event => {
 };
 const languageStorage = () => {
   const capsFromStorage = localStorage.getItem('language');
-  language = capsFromStorage;
+  if (capsFromStorage) {
+    language = capsFromStorage;
+  } else {
+    language = 'en';
+  }
 };
 const getSpecialKeysByClick = event => {
   const textArea = document.querySelector('textarea');
@@ -481,4 +485,4 @@ window.onbeforeunload = () => {
 
 /******/ })()
 ;
-//# sourceMappingURL=index.016d82f51c7f86e6b90f.js.map
+//# sourceMappingURL=index.610490b3daa2512bbcc9.js.map
