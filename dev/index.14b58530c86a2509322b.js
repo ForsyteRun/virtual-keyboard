@@ -76,6 +76,7 @@ const data = {
 };
 let language = 'en';
 let firstKey = [];
+localStorage.setItem('language', language);
 let capsLockActive = false; // TODO refactor to is;
 // TODO for in map
 const generateLayout = () => {
@@ -487,4 +488,4 @@ console.log(222);
 
 /******/ })()
 ;
-//# sourceMappingURL=index.d2992b5d256c8ca5eae8.js.map
+//# sourceMappingURL=index.14b58530c86a2509322b.js.map
