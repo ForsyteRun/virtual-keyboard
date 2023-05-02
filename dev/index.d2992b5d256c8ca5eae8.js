@@ -469,7 +469,7 @@ window.onkeyup = event => {
   firstKey = [];
   serArrowSvg();
 };
-document.addEventListener('load', () => {
+window.addEventListener('load', () => {
   console.log(language);
   languageStorage();
   generateLayout();
@@ -478,13 +478,13 @@ document.addEventListener('load', () => {
   serArrowSvg();
   setListenertoKeyBoard();
 });
-document.addEventListener('beforeunload', () => {
+window.addEventListener('beforeunload', () => {
   console.log(language);
   localStorage.setItem('language', language);
 });
-console.log(111);
+console.log(222);
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=index.2de7691a6ceb53598ec5.js.map
+//# sourceMappingURL=index.d2992b5d256c8ca5eae8.js.map
