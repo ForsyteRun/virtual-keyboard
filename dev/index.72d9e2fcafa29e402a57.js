@@ -76,7 +76,9 @@ const data = {
 };
 let language = 'en';
 let firstKey = [];
-localStorage.setItem('language', language);
+const initStorage = localStorage.getItem('language');
+// eslint-disable-next-line no-unused-expressions
+initStorage ? localStorage.setItem('language', initStorage) : localStorage.setItem('language', language);
 let capsLockActive = false; // TODO refactor to is;
 // TODO for in map
 const generateLayout = () => {
@@ -133,8 +135,7 @@ const getSymbols = function () {
     keyBoard[i].innerHTML = `<span>${currentLang[i]}</span>`;
   }
 };
-const generateKeys = function () {
-  let lang = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'en';
+const generateKeys = lang => {
   let initTemplate = '';
   for (let i = 0; i < data[lang].length; i += 1) {
     initTemplate += `<div class='key key${[i]}'><span>${data[lang][i]}</span></div> `;
@@ -185,19 +186,21 @@ const serArrowSvg = () => {
 const setStyleByPressedNormalBtn = event => {
   const textArea = document.querySelector('textarea');
   const keys = document.querySelectorAll('.key span');
-  let str = event.key;
+  let {
+    key
+  } = event; // DESTRUCTION
   keys.forEach(el => {
     if (capsLockActive) {
-      str = str.toUpperCase();
-      if (el.textContent === str) {
+      key = key.toUpperCase();
+      if (el.textContent === key) {
         el.closest('.key').classList.add('active');
-        textArea.value += str;
+        textArea.value += key;
       }
     } else {
-      str = str.toLowerCase();
-      if (el.textContent === str) {
+      key = key.toLowerCase();
+      if (el.textContent === key) {
         el.closest('.key').classList.add('active');
-        textArea.value += str;
+        textArea.value += key;
       }
     }
   });
@@ -441,7 +444,10 @@ window.onkeydown = event => {
 };
 window.onkeyup = event => {
   const keys = document.querySelectorAll('.key span');
-  if (event.code !== 'CapsLock') {
+  const {
+    code
+  } = event; // DESTRUCTION
+  if (code !== 'CapsLock') {
     keys.forEach(el => {
       if (el.textContent === event.key) {
         el.closest('.key').classList.remove('active');
@@ -450,20 +456,20 @@ window.onkeyup = event => {
       }
     });
   }
-  if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+  if (code === 'ShiftLeft' || event.code === 'ShiftRight') {
     getSymbols(data);
     lettersToLowerCase();
     capsLockActive = false;
-  } else if (event.code === 'ArrowLeft') {
+  } else if (code === 'ArrowLeft') {
     const arrowLeft = document.querySelector('.key59');
     arrowLeft.classList.remove('active');
-  } else if (event.code === 'ArrowRight') {
+  } else if (code === 'ArrowRight') {
     const arrowRight = document.querySelector('.key61');
     arrowRight.classList.remove('active');
-  } else if (event.code === 'ArrowUp') {
+  } else if (code === 'ArrowUp') {
     const arrowUp = document.querySelector('.key51');
     arrowUp.classList.remove('active');
-  } else if (event.code === 'ArrowDown') {
+  } else if (code === 'ArrowDown') {
     const arrowDown = document.querySelector('.key60');
     arrowDown.classList.remove('active');
   }
@@ -471,21 +477,20 @@ window.onkeyup = event => {
   serArrowSvg();
 };
 window.addEventListener('load', () => {
-  console.log(language);
   languageStorage();
   generateLayout();
-  generateKeys('en');
+  generateKeys(language);
   setKeySize();
   serArrowSvg();
   setListenertoKeyBoard();
+  alert('Привет, коллега! Чуть ясности. Проект берёт данные с физической раскладки клавиатуры, тоесть с твоей! Если кнопки не работают - проверь язык ввода! Тоесть, русский будет работать только если у тебя выбран русский язык! Так же с английским. Буду благодарен за твой фидбек! Удачи в учёбе!');
 });
 window.addEventListener('beforeunload', () => {
-  console.log(language);
   localStorage.setItem('language', language);
 });
-console.log(333);
+console.log(444);
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=index.00a5c9e0b95d857ebab9.js.map
+//# sourceMappingURL=index.72d9e2fcafa29e402a57.js.map
