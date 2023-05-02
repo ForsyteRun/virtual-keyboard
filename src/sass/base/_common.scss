@@ -1,0 +1,91 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 1rem;
+  font-family: "Bruno Ace", cursive;
+}
+
+.key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 55px;
+  height: 55px;
+  border: 1px solid #000;
+  box-shadow: 1px 1px 3px #000;
+  transition: all 0.2s ease;
+  &:hover {
+    background: rgb(126, 219, 72);
+    transition: all 0.2s ease;
+  }
+  &:active {
+    transform: translate(2px, 2px);
+    background: rgb(55, 115, 20);
+    color: aliceblue;
+  }
+  &_first-row {
+    width: 46px;
+  }
+  &_second-row {
+    width: 98px;
+  }
+  &_therd-row {
+    width: 128px;
+  }
+  &_forth-row {
+    width: 163px;
+  }
+  &_space {
+    width: 406px;
+  }
+  &_back-space {
+    width: 150px;
+  }
+  &_right-size {
+    width: 93px;
+  }
+}
+
+.arrow {
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  &__up {
+    background-image: url("./../images/svg/sort-up-solid.svg");
+    align-self: flex-end;
+  }
+  &__down {
+    background-image: url("./../images/svg/sort-down-solid.svg");
+    align-self: flex-start;
+  }
+  &__left {
+    background-image: url("./../images/svg/caret-left-solid.svg");
+  }
+  &__right {
+    background-image: url("./../images/svg/caret-right-solid.svg");
+  }
+}
+
+.active {
+  transform: translate(2px, 2px);
+  background: rgb(55, 115, 20);
+  color: aliceblue;
+}
+
+.arrow-mnemonik {
+  &_up,
+  &_down,
+  &_left,
+  &_right {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+.content {
+  font-size: 18px;
+  text-align: center;
+}
