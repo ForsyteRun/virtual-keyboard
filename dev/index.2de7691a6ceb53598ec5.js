@@ -469,21 +469,22 @@ window.onkeyup = event => {
   firstKey = [];
   serArrowSvg();
 };
-window.onload = () => {
+document.addEventListener('load', () => {
+  console.log(language);
   languageStorage();
   generateLayout();
   generateKeys('en');
   setKeySize();
   serArrowSvg();
   setListenertoKeyBoard();
-  alert('Привет, коллега! Чуть ясности. Проект берёт данные с физической раскладки клавиатуры, тоесть с твоей! Если кнопки не работают - проверь язык ввода! Тоесть, русский будет работать только если у тебя выбран русский язык! Так же с английским. Буду благодарен за твой фидбек! Удачи в учёбе!');
-};
+});
 document.addEventListener('beforeunload', () => {
   console.log(language);
   localStorage.setItem('language', language);
 });
+console.log(111);
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=index.4f28a2308ad2553562fc.js.map
+//# sourceMappingURL=index.2de7691a6ceb53598ec5.js.map
