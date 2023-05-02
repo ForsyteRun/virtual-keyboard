@@ -483,9 +483,9 @@ window.addEventListener('beforeunload', () => {
   console.log(language);
   localStorage.setItem('language', language);
 });
-console.log(222);
+console.log(333);
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=index.14b58530c86a2509322b.js.map
+//# sourceMappingURL=index.00a5c9e0b95d857ebab9.js.map
